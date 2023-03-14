@@ -4,7 +4,7 @@
     var expressed = attrArray[0];
 
     // Begin script when window loads
-    window.onload = setMap();
+    window.onload = setMap;
 
     // Set up choropleth map
     function setMap() {
@@ -37,11 +37,11 @@
         promises.push(d3.json("data/states.topojson")); // Load choropleth spatial data
         promises.push(d3.json("data/mexico.topojson")); // Load choropleth spatial data
 
-        Promise.all(promises).then(data => callback(data, map, path));
+        Promise.all(promises).then(callback);
     }
 
     // Callback function
-    function callback(data, map, path) {
+    function callback(data) {
         var csvData = data[0],
             arizona = data[1],
             states = data[2],
@@ -56,8 +56,7 @@
         createGraticule(map, path);
         addStateBoundaries(map, path, stateboundaries);
         addMexico(map, path, mexicoboundaries);
-        makeColorScale(csvData);
-        setEnumerationUnits(arizonacounties, csvData, map, path);
+        addArizonaCounties(map, path, arizonacounties);
     }
 
     // Process data
@@ -127,66 +126,5 @@
             })
             .attr("d", path);
     }
-
-    //function to create color scale generator
-    function makeColorScale(data) {
-        var colorClasses = [
-            "#ffedf2",
-            "#fcbba1",
-            "#fc9272",
-            "#fb6a4a",
-            "#ef3b2c",
-            "#cb181d"
-        ];
-        
-        //create color scale generator
-        var colorScale = d3.scaleThreshold()
-            .range(colorClasses);
-
-        //build array of all values of the expressed attribute
-        var domainArray = [];
-        for (var i = 0; i < data.length; i++) {
-            var val = parseFloat(data[i][expressed]);
-            domainArray.push(val);
-        }
-
-        //cluster data using ckmeans clustering algorithm to create natural breaks
-        var clusters = ss.ckmeans(domainArray, 6);
-        //reset domain array to cluster minimums
-        domainArray = clusters.map(function(d) {
-            return d3.min(d);
-        });
-
-        //remove first value from domain array to create class breakpoints
-        domainArray.shift();
-
-        //assign array of last 5 cluster minimums as domain
-        colorScale.domain(domainArray);
-
-        return colorScale;
-    }
-
-    //function to set enumeration units fill color
-    function setEnumerationUnits(arizonacounties, csvData, map, path) {
-
-        var colorScale = makeColorScale(csvData);
-
-        //add Arizona counties to map
-        var counties = map.selectAll(".counties")
-            .data(arizonacounties.features)
-            .enter()
-            .append("path")
-            .attr("class", function(d) {
-                return "counties " + d.properties.FIPS;
-            })
-            .attr("d", path)
-                .style("fill", function(d) {
-                    var value = d.properties[expressed];
-                    if (value) {
-                        return colorScale(value);
-                    } else {
-                        return "#ccc";
-                    }
-                });
-    }
 })();
+

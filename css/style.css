@@ -42,3 +42,9 @@
 .gratBackground {
     fill: #D5E3FF;
 }
+
+.counties {
+    stroke: #999;
+    stroke-width: 0.5 px;
+    stroke-linecap: round;
+}

@@ -823,7 +823,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04019",
+                  "FIPS": "04019",
                   "COUNTYNS": "00025446",
                   "AFFGEOID": "0500000US04019",
                   "GEOID": "04019",
@@ -844,7 +844,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04023",
+                  "FIPS": "04023",
                   "COUNTYNS": "00040472",
                   "AFFGEOID": "0500000US04023",
                   "GEOID": "04023",
@@ -868,7 +868,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04007",
+                  "FIPS": "04007",
                   "COUNTYNS": "00040471",
                   "AFFGEOID": "0500000US04007",
                   "GEOID": "04007",
@@ -891,7 +891,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04027",
+                  "FIPS": "04027",
                   "COUNTYNS": "00023901",
                   "AFFGEOID": "0500000US04027",
                   "GEOID": "04027",
@@ -914,7 +914,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04003",
+                  "FIPS": "04003",
                   "COUNTYNS": "00025442",
                   "AFFGEOID": "0500000US04003",
                   "GEOID": "04003",
@@ -937,7 +937,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04025",
+                  "FIPS": "04025",
                   "COUNTYNS": "00042809",
                   "AFFGEOID": "0500000US04025",
                   "GEOID": "04025",
@@ -961,7 +961,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04012",
+                  "FIPS": "04012",
                   "COUNTYNS": "00043540",
                   "AFFGEOID": "0500000US04012",
                   "GEOID": "04012",
@@ -984,7 +984,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04015",
+                  "FIPS": "04015",
                   "COUNTYNS": "00025445",
                   "AFFGEOID": "0500000US04015",
                   "GEOID": "04015",
@@ -1007,7 +1007,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04005",
+                  "FIPS": "04005",
                   "COUNTYNS": "00025443",
                   "AFFGEOID": "0500000US04005",
                   "GEOID": "04005",
@@ -1029,7 +1029,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04011",
+                  "FIPS": "04011",
                   "COUNTYNS": "00042807",
                   "AFFGEOID": "0500000US04011",
                   "GEOID": "04011",
@@ -1054,7 +1054,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04009",
+                  "FIPS": "04009",
                   "COUNTYNS": "00025444",
                   "AFFGEOID": "0500000US04009",
                   "GEOID": "04009",
@@ -1076,7 +1076,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04021",
+                  "FIPS": "04021",
                   "COUNTYNS": "00025447",
                   "AFFGEOID": "0500000US04021",
                   "GEOID": "04021",
@@ -1100,7 +1100,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04013",
+                  "FIPS": "04013",
                   "COUNTYNS": "00037026",
                   "AFFGEOID": "0500000US04013",
                   "GEOID": "04013",
@@ -1123,7 +1123,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04017",
+                  "FIPS": "04017",
                   "COUNTYNS": "00042808",
                   "AFFGEOID": "0500000US04017",
                   "GEOID": "04017",
@@ -1146,7 +1146,7 @@
                "type": "Polygon",
                "properties": {
                   "STATEFP": "04",
-                  "COUNTYFP": "04001",
+                  "FIPS": "04001",
                   "COUNTYNS": "00025441",
                   "AFFGEOID": "0500000US04001",
                   "GEOID": "04001",
