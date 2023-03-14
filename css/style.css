@@ -1,7 +1,16 @@
 /* Stylesheet by Dominic C, 2023 */
 .map {
     border: medium solid #999;
+    margin: 10px 0 0 20px;
 }
+
+.chart {
+    background-color: rgba(128,128,128,0.5);
+    border: medium solid #999;
+    float: right;
+    margin: 10px 20px 0 0;
+}
+
 .axis path,
 .axis line {
     fill: none;
@@ -44,7 +53,7 @@
 }
 
 .counties {
-    stroke: #999;
+    stroke: #746a6a;
     stroke-width: 0.5 px;
     stroke-linecap: round;
 }

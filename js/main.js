@@ -2,6 +2,7 @@
     // Attribute array and expressed variables
     var attrArray = ["Population", "% Less Than 18 Years of Age", "% 65 and Over", "Age", "Life Expectancy"];
     var expressed = attrArray[0];
+    var colorScale;
 
     // Begin script when window loads
     window.onload = setMap();
@@ -9,8 +10,8 @@
     // Set up choropleth map
     function setMap() {
         // Map frame dimensions
-        var width = 960,
-            height = 500;
+        var width = window.innerWidth * 0.5,
+            height = 460;
 
         // Create new svg container for the map
         var map = d3.select("body")
@@ -58,6 +59,7 @@
         addMexico(map, path, mexicoboundaries);
         makeColorScale(csvData);
         setEnumerationUnits(arizonacounties, csvData, map, path);
+        setChart(csvData, colorScale);
     }
 
     // Process data
@@ -189,4 +191,18 @@
                     }
                 });
     }
+
+    //function to create coordinated bar chart
+    function setChart(csvData, colorScale) {
+        //chart frame dimensions
+        var chartWidth = window.innerWidth * 0.425,
+            chartHeight = 460;
+
+        //create a second svg element to hold the bar chart
+        var chart = d3.select("body")
+            .append("svg")
+            .attr("width", chartWidth)
+            .attr("height", chartHeight)
+            .attr("class", "chart");
+    };
 })();
