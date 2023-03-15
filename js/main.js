@@ -4,6 +4,10 @@
     var expressed = attrArray[0];
     var colorScale;
 
+    //chart variables
+    var chartWidth = window.innerWidth * 0.425,
+        chartHeight = 460;
+
     // Begin script when window loads
     window.onload = setMap();
 
@@ -262,7 +266,27 @@
             .attr("x", 20)
             .attr("y", 40)
             .attr("class", "chartTitle")
-            .text("Total " + expressed + " by County, 2022");
+            .text(getChartTitleText(expressed));
+    }
+
+    //function to get chart title text
+    function getChartTitleText(attribute) {
+        switch (attribute) {
+            case "Population":
+                return "Total Population by County, 2022";
+            case "% Less Than 18 Years of Age":
+                return "Percentage of Population Under 18 Years by County, 2022";
+            case "% 65 and Over":
+                return "Percentage of Population 65 Years and Over by County, 2022";
+            case "% rural":
+                return "Percentage of Rural Population by County, 2022";
+            case "Life Expectancy":
+                return "Life Expectancy by County, 2022";
+            case "Median Household Income":
+                return "Median Household Income by County, 2022";
+            default:
+                return "";
+        }
     }
 
     //function to create a dropdown menu for attribute selection
@@ -295,22 +319,87 @@
             });
     }
 
-    //dropdown change event handler
-    function changeAttribute(attribute, csvData) {
-        //change the expressed attribute
-        expressed = attribute;
+//dropdown change event handler
+function changeAttribute(attribute, csvData) {
+    //change the expressed attribute
+    expressed = attribute;
 
-        //recreate the color scale
-        var colorScale = makeColorScale(csvData);
+    //recreate the color scale
+    var colorScale = makeColorScale(csvData);
 
-        //recolor enumeration units
-        var counties = d3.selectAll(".counties").style("fill", function(d) {
-            var value = d.properties[expressed];
+    //recolor enumeration units
+    var counties = d3.selectAll(".counties").style("fill", function(d) {
+        var value = d.properties[expressed];
+        if (value) {
+            return colorScale(d.properties[expressed]);
+        } else {
+            return "#ccc";
+        }
+    });
+
+    // Update yScale based on new attribute data
+    var yScale = d3.scaleLinear()
+        .range([0, chartHeight])
+        .domain([0, d3.max(csvData, d => parseFloat(d[expressed])+ parseFloat(d[expressed]) * 0.2)]);
+
+    // Update the chart title
+    d3.select(".chartTitle")
+        .text(getChartTitleText(expressed));
+
+    // Update the numbers (text labels) for each bar
+    d3.selectAll(".numbers")
+        .sort(function(a, b) {
+            return a[expressed] - b[expressed];
+        })
+        .attr("class", function(d) {
+            return "numbers " + d.FIPS;
+        })
+        .attr("text-anchor", "middle")
+        .attr("x", function(d, i) {
+            var fraction = chartWidth / csvData.length;
+            return i * fraction + (fraction - 1) / 2;
+        })
+        .attr("y", function(d) {
+            return chartHeight - yScale(parseFloat(d[expressed])) - 5;
+        })
+        .text(function(d) {
+            return formatTextByAttribute(d[expressed], expressed);
+        });
+
+    //update text labels depending on correct attribute
+    function formatTextByAttribute(value, attribute) {
+        if (attribute === "Population" || attribute === "Median Household Income") {
+            return value > 999999 ? value.toString().slice(0, -6) + "M" : value.toString().slice(0, -3) + "K";
+        } else {
+            return value;
+        }
+    }
+
+    // Update the bars
+    d3.selectAll(".bars")
+        //re-sort bars
+        .sort(function(a, b) {
+            return a[expressed] - b[expressed];
+        })
+        .attr("x", function(d, i) {
+            return i * (chartWidth / csvData.length);
+        })
+        //resize bars
+        .attr("height", function(d) {
+            return yScale(parseFloat(d[expressed]));
+        })
+        .attr("y", function(d) {
+            return chartHeight - yScale(parseFloat(d[expressed]));
+        })
+        //recolor bars
+        .style("fill", function(d) {
+            var value = d[expressed];
             if (value) {
-                return colorScale(d.properties[expressed]);
+                return colorScale(value);
             } else {
                 return "#ccc";
             }
         });
-    }
+}
+
 })();
