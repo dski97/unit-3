@@ -1,6 +1,6 @@
 (function() {
     // Attribute array and expressed variables
-    var attrArray = ["Population", "% Less Than 18 Years of Age", "% 65 and Over", "Age", "Life Expectancy"];
+    var attrArray = ["Population", "% Less Than 18 Years of Age", "% 65 and Over", "% rural", "Life Expectancy", "Median Household Income"];
     var expressed = attrArray[0];
     var colorScale;
 
@@ -60,6 +60,7 @@
         var colorScale = makeColorScale(csvData);
         setEnumerationUnits(arizonacounties, csvData, map, path);
         setChart(csvData, colorScale);
+        createDropdown(csvData);
     }
 
     // Process data
@@ -262,5 +263,54 @@
             .attr("y", 40)
             .attr("class", "chartTitle")
             .text("Total " + expressed + " by County, 2022");
+    }
+
+    //function to create a dropdown menu for attribute selection
+    function createDropdown(csvData) {
+        //add select element
+        var dropdown = d3.select("body")
+            .append("select")
+            .attr("class", "dropdown")
+            .on("change", function() {
+                changeAttribute(this.value, csvData);
+            });
+
+
+        //add initial option
+        var titleOption = dropdown.append("option")
+            .attr("class", "titleOption")
+            .attr("disabled", "true")
+            .text("Select Attribute");
+
+        //add attribute name options
+        var attrOptions = dropdown.selectAll("attrOptions")
+            .data(attrArray)
+            .enter()
+            .append("option")
+            .attr("value", function(d) {
+                return d;
+            })
+            .text(function(d) {
+                return d;
+            });
+    }
+
+    //dropdown change event handler
+    function changeAttribute(attribute, csvData) {
+        //change the expressed attribute
+        expressed = attribute;
+
+        //recreate the color scale
+        var colorScale = makeColorScale(csvData);
+
+        //recolor enumeration units
+        var counties = d3.selectAll(".counties").style("fill", function(d) {
+            var value = d.properties[expressed];
+            if (value) {
+                return colorScale(d.properties[expressed]);
+            } else {
+                return "#ccc";
+            }
+        });
     }
 })();
