@@ -57,7 +57,7 @@
         createGraticule(map, path);
         addStateBoundaries(map, path, stateboundaries);
         addMexico(map, path, mexicoboundaries);
-        makeColorScale(csvData);
+        var colorScale = makeColorScale(csvData);
         setEnumerationUnits(arizonacounties, csvData, map, path);
         setChart(csvData, colorScale);
     }
@@ -204,5 +204,63 @@
             .attr("width", chartWidth)
             .attr("height", chartHeight)
             .attr("class", "chart");
-    };
+
+        var yScale = d3.scaleLinear()
+            .range([0, chartHeight])
+            .domain([0, 4800000]);
+
+
+        //set bars for each county
+        var bars = chart.selectAll(".bars")
+            .data(csvData)
+            .enter()
+            .append("rect")
+            .sort(function(a, b) {
+                return a[expressed] - b[expressed];
+            })
+            .attr("class", function(d) {
+                return "bars " + d.FIPS;
+            })
+            .attr("width", chartWidth / csvData.length - 1)
+            .attr("x", function(d, i) {
+                return i * (chartWidth / csvData.length);
+            })
+            .attr("height", function(d) {
+                return yScale(parseFloat(d[expressed]));
+            })
+            .attr("y", function(d) {
+                return chartHeight - yScale(parseFloat(d[expressed]));
+            })
+            .style("fill", function(d) {
+                return colorScale(d[expressed]);
+            });
+
+        var numbers = chart.selectAll(".numbers")
+            .data(csvData)
+            .enter()
+            .append("text")
+            .sort(function(a, b) {
+                return a[expressed] - b[expressed];
+            })
+            .attr("class", function(d) {
+                return "numbers " + d.FIPS;
+            })
+            .attr("text-anchor", "middle")
+            .attr("x", function(d, i) {
+                var fraction = chartWidth / csvData.length;
+                return i * fraction + (fraction - 1) / 2;
+            })
+            .attr("y", function(d) {
+                return chartHeight - yScale(parseFloat(d[expressed])) - 5;
+            })
+            .text(function(d) {
+                return d[expressed] > 999999 ? d[expressed].toString().slice(0, -6) + "M" : d[expressed].toString().slice(0, -3) + "K";
+            });
+        
+        var chartTitle = chart.append("text")
+            .attr("x", 20)
+            .attr("y", 40)
+            .attr("class", "chartTitle")
+            .text("Total " + expressed + " by County, 2022");
+    }
 })();
