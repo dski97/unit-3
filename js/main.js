@@ -183,7 +183,14 @@
             }) // Close the .style() block here
             .on("mouseover", function(event, d) {
                 highlight(d.properties);
+            })
+            .on('mouseout', function(event, d) {
+                dehighlight(d.properties);
             });
+
+        var desc = counties.append("desc")
+            .text('{"stroke": "#000", "stroke-width": "0.5px"}');
+        
     }
 
 
@@ -217,6 +224,9 @@
             .on("mouseover", function(event, d){
                 highlight(d);
             })
+            .on("mouseout", function(event, d){
+                dehighlight(d);
+            })
             .attr("x", function(d, i) {
                 return i * (chartWidth / csvData.length);
             })
@@ -229,6 +239,9 @@
             .style("fill", function(d) {
                 return colorScale(d[expressed]);
             })
+        
+        var desc = bars.append("desc")
+            .text('{"stroke": "none", "stroke-width": "0px"}');
 
 
 
@@ -266,7 +279,26 @@
                 .style("stroke", "blue")
                 .style("stroke-width", "2");
     }
-    
+
+        function dehighlight(props) {
+            var selected = d3.selectAll(".county_" + props.FIPS)
+                .style("stroke", function() {
+                    return getStyle(this, "stroke")
+                })
+                .style("stroke-width", function() {
+                    return getStyle(this, "stroke-width")
+                });
+
+                function getStyle(element, styleName) {
+                    var styleText = d3.select(element)
+                        .select("desc")
+                        .text();
+
+                    var styleObject = JSON.parse(styleText);
+
+                    return styleObject[styleName];
+                };
+    }
     
 
     //function to get chart title text
