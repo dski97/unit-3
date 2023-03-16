@@ -328,7 +328,10 @@ function changeAttribute(attribute, csvData) {
     var colorScale = makeColorScale(csvData);
 
     //recolor enumeration units
-    var counties = d3.selectAll(".counties").style("fill", function(d) {
+    var counties = d3.selectAll(".counties")
+    .transition()
+    .duration(1000)    
+    .style("fill", function(d) {
         var value = d.properties[expressed];
         if (value) {
             return colorScale(d.properties[expressed]);
@@ -351,6 +354,11 @@ function changeAttribute(attribute, csvData) {
         .sort(function(a, b) {
             return a[expressed] - b[expressed];
         })
+        .transition()
+        .delay(function(d, i) {
+            return i * 20;
+        })
+        .duration(500)
         .attr("class", function(d) {
             return "numbers " + d.FIPS;
         })
@@ -381,6 +389,11 @@ function changeAttribute(attribute, csvData) {
         .sort(function(a, b) {
             return a[expressed] - b[expressed];
         })
+        .transition()
+        .delay(function(d, i) {
+            return i * 20;
+        })
+        .duration(500)
         .attr("x", function(d, i) {
             return i * (chartWidth / csvData.length);
         })
