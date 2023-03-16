@@ -346,7 +346,7 @@
         
         var countyName = infolabel.append("div")
             .attr("class", "labelname")
-            .html(props.name);
+            .html(props.NAME);
 
     }
 

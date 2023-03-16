@@ -100,7 +100,7 @@ option {
     line-height: 1em;
 }
 .infolabel {    margin: 0 20px 0 0;    position: absolute;
-    height: 50px;
+    height: 57px;
     min-width: 100px;
     color: #fff;
     background-color: #000;
@@ -117,4 +117,15 @@ h1 {
     /* make it a little bigger */
     font-size: 2.5em;
 
+}
+#info-box {
+    position: absolute;
+    bottom: 200px;
+    left: 40px ;
+    width: 800px;
+    padding: 15px;
+    background-color: rgb(243, 219, 219);
+    border: 1px solid rgb(0, 0, 0);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
 }
