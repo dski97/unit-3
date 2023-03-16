@@ -85,7 +85,6 @@
                 }
             }
         }
-        console.log(arizonacounties);
     }
 
     // Create graticule
@@ -170,21 +169,23 @@
             .enter()
             .append("path")
             .attr("class", function(d) {
-                return "counties " + d.properties.FIPS;
+                return "counties county_" + d.properties.FIPS;
             })
             .attr("d", path)
-                .style("fill", function(d) {
-                    var value = d.properties[expressed];
-                    if (value) {
-                        return colorScale(value);
-                    } else {
-                        return "#ccc";
-                    }
-                })
-            .on("mouseover", function(d) {
+            .style("fill", function(d) {
+                console.log(d);
+                var value = d.properties[expressed];
+                if (value) {
+                    return colorScale(value);
+                } else {
+                    return "#ccc";
+                }
+            }) // Close the .style() block here
+            .on("mouseover", function(event, d) {
                 highlight(d.properties);
             });
     }
+
 
     //function to create coordinated bar chart
     function setChart(csvData, colorScale) {
@@ -210,9 +211,12 @@
                 return a[expressed] - b[expressed];
             })
             .attr("class", function(d) {
-                return "bars " + d.FIPS;
+                return "bars county_" + d.FIPS;
             })
             .attr("width", chartWidth / csvData.length - 1)
+            .on("mouseover", function(event, d){
+                highlight(d);
+            })
             .attr("x", function(d, i) {
                 return i * (chartWidth / csvData.length);
             })
@@ -225,9 +229,8 @@
             .style("fill", function(d) {
                 return colorScale(d[expressed]);
             })
-            .on("mouseover", function(d) {
-                highlight(d);
-            });
+
+
 
         var numbers = chart.selectAll(".numbers")
             .data(csvData)
@@ -257,6 +260,14 @@
             .attr("class", "chartTitle")
             .text(getChartTitleText(expressed));
     }
+
+        function highlight(props) {
+            var selected = d3.selectAll(".county_" + props.FIPS)
+                .style("stroke", "blue")
+                .style("stroke-width", "2");
+    }
+    
+    
 
     //function to get chart title text
     function getChartTitleText(attribute) {
@@ -308,13 +319,6 @@
             });
     }
 
-    //function to highlight enumeration units and bars
-function highlight(props){
-    //change stroke
-    var selected = d3.selectAll("." + props.FIPS)
-        .style("stroke", "blue")
-        .style("stroke-width", "2");
-};
 
 //dropdown change event handler
 function changeAttribute(attribute, csvData) {
