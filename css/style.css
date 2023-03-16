@@ -70,7 +70,7 @@
 }
 .dropdown {
     position:absolute;
-    top: 30px;
+    top: 120px;
     left: 40px;
     z-index: 10;
     font-family: sans-serif;
@@ -107,4 +107,14 @@ option {
     border: solid thin #fff;
     padding: 5px 10px;
     top: -75px;
+}
+
+h1 {
+    /* center the text */
+    text-align: center;
+    /* give it a nice font */
+    font-family: sans-serif;
+    /* make it a little bigger */
+    font-size: 2.5em;
+
 }
