@@ -2,7 +2,6 @@
     // Attribute array and expressed variables
     var attrArray = ["Population", "% Less Than 18 Years of Age", "% 65 and Over", "% rural", "Life Expectancy", "Median Household Income"];
     var expressed = attrArray[0];
-    var colorScale;
 
     //chart variables
     var chartWidth = window.innerWidth * 0.425,
@@ -62,7 +61,7 @@
         addStateBoundaries(map, path, stateboundaries);
         addMexico(map, path, mexicoboundaries);
         var colorScale = makeColorScale(csvData);
-        setEnumerationUnits(arizonacounties, csvData, map, path);
+        setEnumerationUnits(arizonacounties, csvData, map, path, colorScale);
         setChart(csvData, colorScale);
         createDropdown(csvData);
     }
@@ -122,19 +121,6 @@
             .attr("class", "mexico")
             .attr("d", path);
     }
-
-    // Add Arizona counties
-    function addArizonaCounties(map, path, arizonacounties) {
-        map.selectAll(".counties")
-            .data(arizonacounties.features)
-            .enter()
-            .append("path")
-            .attr("class", function(d) {
-                return "counties " + d.properties.FIPS;
-            })
-            .attr("d", path);
-    }
-
     //function to create color scale generator
     function makeColorScale(data) {
         var colorClasses = [
@@ -174,7 +160,7 @@
     }
 
     //function to set enumeration units fill color
-    function setEnumerationUnits(arizonacounties, csvData, map, path) {
+    function setEnumerationUnits(arizonacounties, csvData, map, path, colorScale) {
 
         var colorScale = makeColorScale(csvData);
 
@@ -194,14 +180,14 @@
                     } else {
                         return "#ccc";
                     }
-                });
+                })
+            .on("mouseover", function(d) {
+                highlight(d.properties);
+            });
     }
 
     //function to create coordinated bar chart
     function setChart(csvData, colorScale) {
-        //chart frame dimensions
-        var chartWidth = window.innerWidth * 0.425,
-            chartHeight = 460;
 
         //create a second svg element to hold the bar chart
         var chart = d3.select("body")
@@ -238,6 +224,9 @@
             })
             .style("fill", function(d) {
                 return colorScale(d[expressed]);
+            })
+            .on("mouseover", function(d) {
+                highlight(d);
             });
 
         var numbers = chart.selectAll(".numbers")
@@ -318,6 +307,14 @@
                 return d;
             });
     }
+
+    //function to highlight enumeration units and bars
+function highlight(props){
+    //change stroke
+    var selected = d3.selectAll("." + props.FIPS)
+        .style("stroke", "blue")
+        .style("stroke-width", "2");
+};
 
 //dropdown change event handler
 function changeAttribute(attribute, csvData) {
