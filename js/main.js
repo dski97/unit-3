@@ -344,7 +344,11 @@
             .attr("id", props.FIPS + "_label")
             .html(labelAttribute);
         
-        var countyName = infolabel.append("div")
+        var countyNameChart = infolabel.append("div")
+            .attr("class", "labelname")
+            .html(props.County);
+
+        var countyNameMap = infolabel.append("div")
             .attr("class", "labelname")
             .html(props.NAME);
 
