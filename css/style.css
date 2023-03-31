@@ -54,7 +54,7 @@
 
 .counties {
     stroke: #746a6a;
-    stroke-width: 0.5 px;
+    stroke-width: 0.5px;
     stroke-linecap: round;
 }
 
@@ -128,4 +128,42 @@ h1 {
     border: 1px solid rgb(0, 0, 0);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+}
+
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Vendor Prefixes */
+.chart {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.infolabel {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+/* For smoother text rendering */
+.axis text,
+.title,
+.states,
+.mexico,
+.numbers,
+.chartTitle,
+.dropdown,
+option,
+.infolabel,
+.infolabel h1,
+h1,
+#info-box {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
