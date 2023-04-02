@@ -17,7 +17,7 @@
             height = 460;
 
         // Create new svg container for the map
-        var map = d3.select("body")
+        var map = d3.select("#mydiv")
                     .append("svg")
                     .attr("class", "map")
                     .attr("width", width)
@@ -199,7 +199,7 @@
     function setChart(csvData, colorScale) {
 
         //create a second svg element to hold the bar chart
-        var chart = d3.select("body")
+        var chart = d3.select("#mydiv")
             .append("svg")
             .attr("width", chartWidth)
             .attr("height", chartHeight)

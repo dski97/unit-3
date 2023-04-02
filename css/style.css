@@ -1,4 +1,9 @@
 /* Stylesheet by Dominic C, 2023 */
+
+#mydiv {
+    margin-top: 30px;
+}
+
 .map {
     border: medium solid #999;
     margin: 10px 0 0 20px;
@@ -70,7 +75,7 @@
 }
 .dropdown {
     position:absolute;
-    top: 120px;
+    top: 100px;
     left: 40px;
     z-index: 10;
     font-family: sans-serif;
@@ -83,15 +88,6 @@
 option {
     font-weight: normal;
 }
-.infolabel {
-    position: absolute;
-    height: 50px;
-    min-width: 100px;
-    color: #fff;
-    background-color: #000;
-    border: solid thin #fff;
-    padding: 5px 10px;
-}
 
 .infolabel h1 {
     margin: 0 20px 0 0;
@@ -100,7 +96,7 @@ option {
     line-height: 1em;
 }
 .infolabel {    margin: 0 20px 0 0;    position: absolute;
-    height: 57px;
+    height: 77 px;
     min-width: 100px;
     color: #fff;
     background-color: #000;
@@ -119,16 +115,18 @@ h1 {
 
 }
 #info-box {
-    position: absolute;
-    bottom: 140px;
-    left: 40px ;
+    position: relative;
+    clear: both;
+    margin-top: 30px; 
     width: 800px;
     padding: 15px;
     background-color: rgb(243, 219, 219);
     border: 1px solid rgb(0, 0, 0);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+    margin-left: 20px;
 }
+
 
 /* CSS Reset */
 * {
