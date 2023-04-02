@@ -377,7 +377,7 @@
     //function to create a dropdown menu for attribute selection
     function createDropdown(csvData) {
         //add select element
-        var dropdown = d3.select("body")
+        var dropdown = d3.select("#mydiv")
             .append("select")
             .attr("class", "dropdown")
             .on("change", function() {
