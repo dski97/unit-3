@@ -23,6 +23,9 @@
                     .attr("width", width)
                     .attr("height", height);
 
+        var zoom = createZoom(map);
+        map.call(zoom);
+
         // Create Albers equal area conic projection centered on Arizona
         var projection = d3.geoAlbers()
                             .center([0, 34.0])
@@ -85,6 +88,20 @@
                 }
             }
         }
+    }
+
+    //create zoom behavior
+    function createZoom(map) {
+        var zoom = d3.zoom()
+            .scaleExtent([1, 8]) // Set the minimum and maximum zoom scale
+            .on("zoom", zoomed);
+    
+        function zoomed(event) {
+            // Apply the zoom transformation to the map's content
+            map.selectAll("path")
+                .attr("transform", event.transform);
+        }
+        return zoom;
     }
 
     // Create graticule
