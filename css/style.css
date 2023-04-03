@@ -211,3 +211,19 @@ option {
     background-color: #f0eef4;
 }
 
+.zoom-button {
+    position: absolute;
+    top: 170px;
+    left: 110px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 1000;
+  }
+  
+  .zoom-button + .zoom-button {
+    top: 170px;
+    left: 150px;
+  }
