@@ -43,14 +43,14 @@ body {
 }
 
 .states {
-    fill: #FFF;
-    stroke: #CCC;
+    fill: #a7a6a659;
+    stroke: #7b7878;
     stroke-width: 2px;
 }
 
 .mexico {
-    fill: #FFF;
-    stroke: #CCC;
+    fill: #a7a6a659;;
+    stroke: #7b7878;
     stroke-width: 2px;
 }
 
@@ -102,7 +102,9 @@ option {
     display: inline-block;
     line-height: 1em;
 }
-.infolabel {    margin: 0 20px 0 0;    position: absolute;
+.infolabel {    
+    margin: 0 20px 0 0;
+    position: absolute;
     height: 77 px;
     min-width: 100px;
     color: #fff;
@@ -175,8 +177,7 @@ h1 {
 .infolabel {
     -webkit-transform: translateY(0);
     transform: translateY(0);
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
+
 }
 
 

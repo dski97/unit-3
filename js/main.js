@@ -154,12 +154,12 @@
     //function to create color scale generator
     function makeColorScale(data) {
         var colorClasses = [
-            "#ffedf2",
-            "#fcbba1",
-            "#fc9272",
-            "#fb6a4a",
-            "#ef3b2c",
-            "#cb181d"
+            "#eff3ff",
+            "#bdd7e7",
+            "#6baed6",
+            "#3182bd",
+            "#08519c",
+            "#08306b"
         ];
         
         //create color scale generator
@@ -264,14 +264,15 @@
                 return i * (chartWidth / csvData.length);
             })
             .attr("height", function(d) {
-                return yScale(parseFloat(d[expressed]));
+                return Math.max(20, yScale(parseFloat(d[expressed])));
             })
             .attr("y", function(d) {
-                return chartHeight - yScale(parseFloat(d[expressed]));
+                return chartHeight - Math.max(20, yScale(parseFloat(d[expressed])));
             })
             .style("fill", function(d) {
                 return colorScale(d[expressed]);
-            })
+            });
+        
         
         var desc = bars.append("desc")
             .text('{"stroke": "none", "stroke-width": "0px"}');
@@ -294,7 +295,8 @@
                 return i * fraction + (fraction - 1) / 2;
             })
             .attr("y", function(d) {
-                return chartHeight - yScale(parseFloat(d[expressed])) - 5;
+                var barHeight = Math.max(20, yScale(parseFloat(d[expressed])));
+                return chartHeight - barHeight - 5;
             })
             .text(function(d) {
                 return d[expressed] > 999999 ? d[expressed].toString().slice(0, -6) + "M" : d[expressed].toString().slice(0, -3) + "K";
@@ -485,7 +487,8 @@ function changeAttribute(attribute, csvData) {
             return i * fraction + (fraction - 1) / 2;
         })
         .attr("y", function(d) {
-            return chartHeight - yScale(parseFloat(d[expressed])) - 5;
+            var barHeight = Math.max(20, yScale(parseFloat(d[expressed])));
+            return chartHeight - barHeight - 5;
         })
         .text(function(d) {
             return formatTextByAttribute(d[expressed], expressed);
@@ -516,10 +519,10 @@ function changeAttribute(attribute, csvData) {
         })
         //resize bars
         .attr("height", function(d) {
-            return yScale(parseFloat(d[expressed]));
+            return Math.max(20, yScale(parseFloat(d[expressed])));
         })
         .attr("y", function(d) {
-            return chartHeight - yScale(parseFloat(d[expressed]));
+            return chartHeight - Math.max(20, yScale(parseFloat(d[expressed])));
         })
         //recolor bars
         .style("fill", function(d) {
@@ -530,6 +533,7 @@ function changeAttribute(attribute, csvData) {
                 return "#ccc";
             }
         });
+
 }
 
 })();
